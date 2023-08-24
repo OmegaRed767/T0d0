@@ -3,12 +3,13 @@ const app = express()
 const productRoutes = require("./api/routes/Product")
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-
+const cors = require('cors')
 mongoose.connect(`mongodb+srv://raakesh210:${process.env.pass}@cluster0.6yg6iek.mongodb.net/`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
     .then(() => console.log('Connected!'));
+app.use(cors)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use("/product", productRoutes)
