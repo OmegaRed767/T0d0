@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const productRoutes = require("./api/routes/Product")
+const TaskRoutes = require("./api/routes/Tasks")
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -11,14 +12,11 @@ mongoose.connect(`mongodb+srv://raakesh210:${process.env.pass}@cluster0.6yg6iek.
     .then(() => console.log('Connected!')).catch(err => console.log("err", err))
 
 app.use(cors())
-app.use((req, res, next) => {
-    res.status(200).json({
-        msg: "hello server"
-    })
-})
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
 app.use("/product", productRoutes)
+app.use("/Tasks", TaskRoutes)
 
 app.use((req, res, next) => {
     let error = new Error("error has occured")
